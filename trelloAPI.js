@@ -36,7 +36,7 @@ const createCardForList = (listID, name) => {
 
 let jsonData;
 
-fs.readFile("weekNumber.json", "utf8", (errors, data) => {
+fs.readFile("./weekNumber.json", "utf8", (errors, data) => {
   jsonData = JSON.parse(data);
   console.log(jsonData);
   createCardForList(
@@ -53,7 +53,7 @@ fs.readFile("weekNumber.json", "utf8", (errors, data) => {
   );
   jsonData.week = jsonData.week + 1;
   const jsonString = JSON.stringify(jsonData);
-  fs.writeFile("weekNumber.json", jsonString, "utf8", (err, data) =>
+  fs.writeFile("./weekNumber.json", jsonString, "utf8", (err, data) =>
     console.log(data)
   );
 });
