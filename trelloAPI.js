@@ -1,5 +1,6 @@
 import axios from "axios";
 import fs from "fs";
+import { resolve } from "path";
 
 const key = process.env.TRELLOKEY;
 const token = process.env.TRELLOTOKEN;
@@ -10,26 +11,63 @@ const instance = axios.create({
 });
 
 export const GetBoardId = (name) => {
-  instance
-    .get("1/members/me/boards", {
-      params: { fields: ["id", "name"] },
-    })
-    .then((response) => {
-      return new Promise((resolve, reject) => {
-        try {
-          response.data.forEach((item) => {
+  return new Promise((resolve, reject) => {
+    try {
+      instance
+        .get("1/members/me/boards", {
+          params: { fields: ["id", "name"] },
+        })
+        .then((result) => {
+          result.data.forEach((item) => {
             if (item.name === name) {
               resolve(item.id);
             }
           });
-          resolve("undefined");
-        } catch (error) {
-          reject(new Error(error));
-        }
-      });
-    })
-    .catch((error) => console.log(error));
+        });
+    } catch (error) {
+      reject(new Error(error));
+    }
+  });
 };
+
+// return new Promise((resolve, reject) => {
+//     try{
+//       instance
+//         .get("1/members/me/boards", {
+//         params: { fields: ["id", "name"] },
+//     }).then((response) =>
+//     {
+//         response.data.forEach(item => {
+//           if(item.name === name){
+//             resolve(item.id);
+//     }
+//   }
+//   )
+// })
+
+//   }
+//   catch((error) => reject(new Error(error))})};
+
+// instance
+//   .get("1/members/me/boards", {
+//     params: { fields: ["id", "name"] },
+//   })
+//   .then((response) => {
+//     return new Promise((resolve, reject) => {
+//       try {
+//         response.data.forEach((item) => {
+//           if (item.name === name) {
+//             resolve(item.id);
+//           }
+//         });
+//         resolve("undefined");
+//       } catch (error) {
+//         reject(new Error(error));
+//       }
+//     });
+//   })
+//   .catch((error) => console.log(error));
+// };
 
 const getListOnBoard = (boardID) => {
   instance
