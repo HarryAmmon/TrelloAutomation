@@ -30,50 +30,16 @@ export const GetBoardId = (name) => {
   });
 };
 
-// return new Promise((resolve, reject) => {
-//     try{
-//       instance
-//         .get("1/members/me/boards", {
-//         params: { fields: ["id", "name"] },
-//     }).then((response) =>
-//     {
-//         response.data.forEach(item => {
-//           if(item.name === name){
-//             resolve(item.id);
-//     }
-//   }
-//   )
-// })
-
-//   }
-//   catch((error) => reject(new Error(error))})};
-
-// instance
-//   .get("1/members/me/boards", {
-//     params: { fields: ["id", "name"] },
-//   })
-//   .then((response) => {
-//     return new Promise((resolve, reject) => {
-//       try {
-//         response.data.forEach((item) => {
-//           if (item.name === name) {
-//             resolve(item.id);
-//           }
-//         });
-//         resolve("undefined");
-//       } catch (error) {
-//         reject(new Error(error));
-//       }
-//     });
-//   })
-//   .catch((error) => console.log(error));
-// };
-
-const getListOnBoard = (boardID) => {
-  instance
-    .get(`1/boards/${boardID}/lists`)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
+export const GetListsOnBoard = (boardID) => {
+  return new Promise((resolve, reject) => {
+    try {
+      instance.get(`1/boards/${boardID}/lists`).then((result) => {
+        resolve(result.data);
+      });
+    } catch (error) {
+      reject(new Error(error));
+    }
+  });
 };
 
 const createCardForList = (listID, name) => {
