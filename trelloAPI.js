@@ -2,8 +2,8 @@ import axios from "axios";
 import fs from "fs";
 import { resolve } from "path";
 
-const key = process.env.TRELLOKEY;
-const token = process.env.TRELLOTOKEN;
+const key = process.env.TRELLO_KEY;
+const token = process.env.TRELLO_TOKEN;
 
 const instance = axios.create({
   baseURL: "https://api.trello.com/",
@@ -30,11 +30,16 @@ export const GetBoardId = (name) => {
   });
 };
 
-export const GetListsOnBoard = (boardID) => {
+export const GetListsOnBoard = (boardID, listName) => {
   return new Promise((resolve, reject) => {
     try {
       instance.get(`1/boards/${boardID}/lists`).then((result) => {
-        resolve(result.data);
+        result.data.forEach((list) => {
+          if (list.name === listName) {
+            resolve(list.id);
+          }
+        });
+        resolve(undefined);
       });
     } catch (error) {
       reject(new Error(error));
@@ -42,11 +47,16 @@ export const GetListsOnBoard = (boardID) => {
   });
 };
 
-const createCardForList = (listID, name) => {
-  instance
-    .post(`1/cards`, null, { params: { idList: listID, name: name } })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
+export const CreateCardForList = (listID, cardName) => {
+  return new Promise((resolve, reject) => {
+    try {
+      instance
+        .post(`1/cards`, null, { params: { idList: listID, name: cardName } })
+        .then((response) => resolve(response.data));
+    } catch (error) {
+      reject(new Error(error));
+    }
+  });
 };
 
 let jsonData;
