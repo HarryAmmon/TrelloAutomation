@@ -52,7 +52,7 @@ export const CreateCardForList = (listID, cardName) => {
     try {
       instance
         .post(`1/cards`, null, { params: { idList: listID, name: cardName } })
-        .then((response) => resolve(response.data));
+        .then((response) => resolve(response.data.id));
     } catch (error) {
       reject(new Error(error));
     }
