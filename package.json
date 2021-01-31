@@ -1,5 +1,13 @@
 {
   "dependencies": {
     "axios": "^0.21.0"
-  }
+  },
+  "name": "trelloAutomation",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/HarryAmmon/TrelloAutomation.git",
+  "author": "HarryAmmon <harry_a99@hotmail.co.uk>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {"start": "node app.js"}
 }
