@@ -9,5 +9,13 @@
   "author": "HarryAmmon <harry_a99@hotmail.co.uk>",
   "license": "MIT",
   "type": "module",
-  "scripts": {"start": "node app.js"}
+  "scripts": {
+    "start": "node app.js",
+    "build": "babel src -d build"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11"
+  }
 }
